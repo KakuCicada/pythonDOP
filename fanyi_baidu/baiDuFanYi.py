@@ -11,7 +11,7 @@ import settings
 class BaiDuFanYi():
     """通过百度翻译API实现翻译功能"""
 
-    def __init__(self,mes='hello world',source='auto',target='zh'):
+    def __init__(self,mes,source,target):
         self.url = settings.baiDuApiUrl
         self.appId = settings.baiDuAppId
         self.secretKey = settings.baiDuSecretKey
@@ -21,7 +21,7 @@ class BaiDuFanYi():
         self.Random = random.randint(1,10000)
 
 
-    def encryptMes(self,mes):
+    def encryptMes(self):
         """获取需要翻译的内容，并按照百度API需求加密处理
         默认源语言为自动识别，默认翻译为中文
         """
@@ -30,20 +30,21 @@ class BaiDuFanYi():
         Random = self.Random
 
         # 按照API要求进行字符串拼接，并使用md5加密
-        str1 = str(appId) + mes + str(Random) + secretKey
+        str1 = str(appId) + self.mes + str(Random) + secretKey
         sign = md5(str1.encode("utf-8")).hexdigest()
         return sign.lower()
 
-    def queryData(self,mes,Token):
+    def queryData(self,Token):
         AppID = self.appId
         Random = self.Random
         source = self.source
         target = self.target
+        # print(target)
 
         """拼凑出用于请求的data
         """
         data = {
-            "q":mes,
+            "q":self.mes,
             "from":source,
             "to":target,
             "appid":AppID,
@@ -62,15 +63,14 @@ class BaiDuFanYi():
         return res.text
 
     def main(self):
-        mes = self.mes
-        fanyi = BaiDuFanYi()
-        token = fanyi.encryptMes(mes)
-        Data = fanyi.queryData(mes,token)
+        fanyi = BaiDuFanYi(self.mes,self.source,self.target)
+        token = fanyi.encryptMes()
+        Data = fanyi.queryData(token)
         Res = fanyi.QueryApi(Data)
         return Res
 
 
 if __name__ == '__main__':
-    app = BaiDuFanYi(mes='Apple',source='auto',target='zh')
+    app = BaiDuFanYi(mes='Apple',source='auto',target='jp')
     Json = json.loads(app.main())
     print(Json['trans_result'][0]['dst'])
