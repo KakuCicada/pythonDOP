@@ -2,8 +2,8 @@
 
 import sys
 
-from PyQt5.QtWidgets import QApplication,QWidget,QToolTip,QPushButton
-from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QApplication,QWidget,QPushButton
+from PyQt5.QtCore import QCoreApplication
 
 class Example(QWidget):
 
@@ -13,20 +13,11 @@ class Example(QWidget):
 
     def initUI(self):
 
-        # 设置提示框的字体和大小
-        QToolTip.setFont(QFont('Monaco',10))
-
-        # 设置整个提示框内的内容
-        self.setToolTip('This is a <b>QWidget</b> widget')
-
-        # 定义一个按钮的类，以及按钮的显示内容
-        btn = QPushButton('Button', self)
-        btn.setToolTip('This is a <b>QPushButton</b> widget')
-
-        # 设置按钮所在的位置，sizeHint自动给出一个推荐大小
-        btn.resize(btn.sizeHint())
-        # 按钮所在整个窗口的位置
-        btn.move(50, 50)
+        qbtn = QPushButton('Quit',self)
+        # 按钮接收到点击信号后执行退出操作
+        qbtn.clicked.connect(QCoreApplication.instance().quit)
+        qbtn.resize(qbtn.sizeHint())
+        qbtn.move(50,150)
 
         self.setGeometry(300, 300, 300, 200)
         self.setWindowTitle('Tooltips')
