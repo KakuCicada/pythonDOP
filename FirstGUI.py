@@ -1,9 +1,7 @@
 #-*- conding:utf-8 -*-
 
 import sys
-
-from PyQt5.QtWidgets import QApplication,QWidget,QPushButton
-from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtWidgets import QApplication,QWidget,QDesktopWidget
 
 class Example(QWidget):
 
@@ -12,20 +10,19 @@ class Example(QWidget):
         self.initUI()
 
     def initUI(self):
-
-        qbtn = QPushButton('Quit',self)
-        # 按钮接收到点击信号后执行退出操作
-        qbtn.clicked.connect(QCoreApplication.instance().quit)
-        qbtn.resize(qbtn.sizeHint())
-        qbtn.move(50,150)
-
-        self.setGeometry(300, 300, 300, 200)
-        self.setWindowTitle('Tooltips')
+        self.resize(350,250)
+        self.center()
+        self.setWindowTitle('Center')
         self.show()
+
+    def center(self):
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-
     ex = Example()
-
     sys.exit(app.exec_())
