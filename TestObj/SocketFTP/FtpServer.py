@@ -38,10 +38,11 @@ def Getcmd(request):
     SendInfo = UserInfo.decode('utf-8').split(' ')
     return SendInfo
 
-def SendMes(Mes):
+def SendMes(request,Mes):
     Pack = struct.pack('i', len(Mes))
-    ftpServer.send(Pack)
-    ftpServer.send(Mes.encode('utf-8'))
+    print(Pack)
+    request.send(Pack)
+    request.send(Mes.encode('utf-8'))
 
 
 ftpServer.bind(ipPort)
@@ -50,22 +51,22 @@ print('服务器开始运行于%s的%s端口' %(settings.ServerMes['ip'],setting
 while True:
     conn,addr = ftpServer.accept()
     print('新的客户端连接：',addr)
-    try:
+    # try:
         # 当有新的链接进入时，需要进行登录操作
-        Info = Getcmd(conn)
-        SetUser = settings.UserMes
-        if Info[0] in SetUser:
-            print('*'*20)
-            if Info[1] == SetUser[Info[0]]['passwd']:
-                mes = '0 登录成功'
-            else:
-                mes = '1 登录失败'
+    Info = Getcmd(conn)
+    SetUser = settings.UserMes
+    if Info[0] in SetUser:
+        if Info[1] == SetUser[Info[0]]['passwd']:
+            mes = '0 登录成功'
         else:
-            mes = '1 用户不存在'
-        conn.send(mes.encode('utf-8'))
+            mes = '1 登录失败'
+    else:
+        mes = '1 用户不存在'
+    print('*'*40)
+    SendMes(conn,mes)
 
-        while True:
-            Usercmd = Getcmd(conn)
-    except Exception as e:
-        print(e)
-        break
+    while True:
+        pass
+    # except Exception as e:
+    #     print(e)
+    #     break

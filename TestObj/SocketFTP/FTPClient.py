@@ -25,6 +25,9 @@ def StreamPro(Action):
     packlen = ftpClient.recv(4)
     Meslen = struct.unpack('i', packlen)[0]
     ServMes = ftpClient.recv(Meslen)
+    ####
+    print(type(ServMes))
+    ####
     PackMes = ServMes.decode('utf-8')
     print(PackMes.split(' ')[1:])
     return PackMes.split(' ')[0]
