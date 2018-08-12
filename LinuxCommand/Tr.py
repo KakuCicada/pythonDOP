@@ -1,5 +1,4 @@
-# coding=utf-8
-#
+# -*- coding:utf-8 -*-
 
 import os, sys
 
@@ -9,5 +8,7 @@ if len(sys.argv) > 2:
 else:
     print('Argv Error! Need 2 args')
     exit(2)
-# 重命名
-os.rename(Source, Target)
+
+
+var='123s345sdf'
+os.popen('wc -c', 'w').write(var)
