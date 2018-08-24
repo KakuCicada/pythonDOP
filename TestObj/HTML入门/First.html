@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" charset="UTF-8">
+    <title>First Page</title>
+</head>
+<body>
+
+<h1>Hello World</h1>
+<h2>Hello World</h2>
+<h3>Hello World</h3>
+<h4>Hello World</h4>
+<h5>Hello World</h5>
+<h6>Hello World</h6>
+
+hello world  hello world
+<p>hello world</p>
+<hr />
+<p>hello world</p>
+
+<table border="1px" cellpadding="10px" cellspacing="5px">
+    <thead>
+        <tr>
+            <th>111</th>
+            <th>222</th>
+            <th>333</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td rowspan="2">111111</td>
+            <td>222222</td>
+            <td>33</td>
+        </tr>
+        <tr>
+            <td>2323we</td>
+            <td>3sdfsd</td>
+        </tr>
+        <tr>
+            <td>sdg23</td>
+            <td colspan="2">xfbgvw33</td>
+        </tr>
+    </tbody>
+</table>
+
+<table border="1px" cellpadding="10px" cellspacing="5px">
+    <thead>
+        <tr>
+            <th>111</th>
+            <th>222</th>
+            <th>333</th>
+        </tr>
+    </thead>
+
+        <tr>
+            <td rowspan="2">111111</td>
+            <td>222222</td>
+            <td>33</td>
+        </tr>
+        <tr>
+            <td>2323we</td>
+            <td>3sdfsd</td>
+        </tr>
+        <tr>
+            <td>sdg23</td>
+            <td colspan="2">xfbgvw33</td>
+        </tr>
+</table>
+
+
+ <!--img 属性具有定义图片宽和高参数的 -->
+<img src="test.png" alt="截图"><br>
+<a href="http://www.baidu.com">点击访问百度</a>
+aaaaaaaaaa
+<div><a href="http://www.baidu.com">点击访问百度</a></div>
+换行<br>换行
+
+<p>This is <br />a para<br />graph with line breaks</p>
+
+<!--特殊字符-->
+&lt
+&gt
+&quot
+&copy
+&reg
+
+<!--块标签和内联标签-->
+<div style="background-color: coral">块级标签</div>
+<span style="background-color: aquamarine">内联标签</span>
+
+
+<!--注册页面 表单-->
+<!--<h1>注册页面</h1>-->
+<!--<p>姓名 <input type="text" name="username"></p>-->
+<!--<p>密码 <input type="password" name="pwd"></p>-->
+<!--<p>爱好 音乐<input type="checkbox" name="hobby"> 打篮球<input type="checkbox" name="hobby"></p>-->
+<!--<p>性别 男<input type="radio" name="gender"> 女<input type="radio" name="gender"></p>-->
+
+<!--这时无法提交到后端程序-->
+<h1>注册页面</h1>
+<p>姓名 <input type="text" name="username"></p>
+<p>密码 <input type="password" name="pwd"></p>
+<p>爱好 音乐<input type="checkbox" name="hobby" value="music"> 打篮球<input type="checkbox" name="hobby" value="basketball"></p>
+<p>性别 男<input type="radio" name="gender" value="men"> 女<input type="radio" name="gender" value="women"></p>
+<p><input type="submit" value="submit"></p>
+<!--button 点击不触发任何事情，submit点击后提交数据-->
+<p><input type="button" value="button"></p>
+
+<!--点击submit后，数据提交到form表单中的action处理-->
+<!--method 提交方式，post或者get-->
+<form action="http://127.0.0.1:8080/index" method="post">
+    <h1>表单注册页面</h1>
+    <p>姓名 <input type="text" name="username"></p>
+    <p>密码 <input type="password" name="pwd"></p>
+    <p>爱好 音乐<input type="checkbox" name="hobby" value="music"> 打篮球<input type="checkbox" name="hobby" value="basketball"></p>
+    <p>性别 男<input type="radio" name="gender" value="men"> 女<input type="radio" name="gender" value="women"></p>
+    <p><input type="submit" value="submit"></p>
+    <p><input type="reset"></p>
+</form>
+
+</body>
+</html>
