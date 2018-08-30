@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS选择器</title>
+
+    <style>
+        /*通用元素选择器，匹配任何元素
+        *{
+            margin: 0;
+            padding: 0;
+            color: #66ccFF;
+        }*/
+        /*多元素选择器，同时匹配div或者p
+        div,p {
+            color: red;
+        }*/
+        .div1>p{
+            background-color: aquamarine;
+            color: #ffa0a0;
+        }
+        .main2>div{
+            background-color: dimgrey;
+            color: lightsalmon;
+        }
+    </style>
+</head>
+<body>
+    <!--<div>This is a div</div>-->
+    <!--<p>This is p</p>-->
+    <!--<a href="">This is a</a>-->
+
+    <div class="div1">hello div1
+        <div class="div2">hello div2
+            <div>hello div3</div>
+            <p>hello div2.p</p>
+        </div>
+        <p>hello div1.p</p>
+    </div>
+    <p>hello p</p>
+
+    <hr>
+
+    <div class="main2">
+        <div>
+            2
+            <div>
+                4
+            </div>
+        </div>
+        <div>
+            3
+        </div>
+    </div>
+</body>
+</html>

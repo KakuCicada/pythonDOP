@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS伪类</title>
+
+    <style type="text/css">
+        a:link{
+            color: dimgrey;
+        }
+        a:visited{
+            color: #FF0000;
+        }
+        a:hover{
+            color: #FF00FF;
+        }
+        a:active{
+            color: #0000FF;
+        }
+        p:before{
+            content: "这是P标签之前";
+            color: aquamarine;
+        }
+        p:after{
+            content: "这是P标签之后";
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+<a href="">点击此处链接显示效果</a>
+
+<p>This is a Test P label</p>
+<p>这里是P标签2</p>
+<p>新的P标签</p>
+<p>用来展示after和before</p>
+
+</body>
+</html>

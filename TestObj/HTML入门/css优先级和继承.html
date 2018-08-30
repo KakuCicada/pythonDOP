@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS优先级和继承</title>
+
+    <style>
+        #test{
+            color: #ff151f;
+        }
+        .p{
+            color: #2459a2;
+        }
+        p{
+            color: yellow;
+        }
+    </style>
+</head>
+<body>
+<p>hello world</p>
+<p id="test">hello world</p>
+<p class="p">hello world</p>
+<p class="p" style="color: deeppink">hello world</p>
+<p style="color: deeppink" class="p">hello world</p>
+
+</body>
+</html>
