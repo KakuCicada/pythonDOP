@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>抽屉示例</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        body{
+            font-family: "Times New Roman";
+            font-size: 12px;
+        }
+
+        /*--------------------head部分---------------*/
+        .headBox{
+            background-color: #2459a2;
+            height: 44px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .headContent{
+            width: 1016px;
+            /*background-color: #ffa0a0;*/
+            height: 44px;
+            line-height: 44px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .headContent .logo{
+            display: inline-block;
+            background: url("https://dig.chouti.com/images/logo.png");
+            width: 121px;
+            height: 23px;
+            float: left;
+            margin: 11px;
+        }
+
+        .headContent .action-menu{
+            float: left;
+            margin-left: 5px;
+        }
+
+        .headContent .action-menu a.tb{
+            display: inline-block;
+            /*background-color: white;*/
+            margin-left: -3px;
+            /*border: 1px solid;*/
+            padding: 0 16px 0 13px;
+            /*a标签字体颜色*/
+            color: darkgrey;
+        }
+
+        .headContent .action-menu a.tb:hover{
+            /*color: white;*/
+            background-color: #396bb3;
+        }
+        
+        .headContent .action-menu a.active, .headContent .action-menu a.active:hover{
+            /*color: #FFF;*/
+            background-color: #204897;
+        }
+
+        .key-seach{
+            float: right;
+            margin-top: 5px;
+        }
+
+        .key-seach .search-text{
+            float: left;
+            width: 91px;
+            height: 25px;
+            padding: 2px 2px 2px 5px;
+        }
+
+        .key-seach a{
+            display: inline-block;
+            width: 31px;
+            height: 33px;
+            background-color: #f4f4f4;
+        }
+
+        .key-seach a span.ico{
+            display: inline-block;
+            width: 12px;
+            height: 13px;
+            background: url("https://dig.chouti.com/images/icon.png") no-repeat 2px -197px;
+            margin-left: 10px;
+            margin-top: 1px;
+        }
+        .action-nav{
+            position: absolute;
+            right: 150px;
+        }
+        .action-nav a{
+            display: inline-block;
+            line-height: 44px;
+            color: #FFF;
+            margin: 0 5px;
+            padding: 0 20px;
+        }
+        .action-nav a:hover{
+            background-color: gold;
+        }
+        /*--------------------head结束---------------*/
+        /*--------------------content开始---------------*/
+        .main-content-box{
+            background-color: lightgray;
+            padding-top: 44px;
+        }
+        .main-content{
+            background-color: white;
+            margin: 0 auto;
+            width: 1016px;
+            height: auto!important;
+            min-height: 700px;
+            overflow: hidden;
+        }
+        
+        .main-content .content-L{
+            float: left;
+            width: 630px;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+        .content-L .top-area{
+            border-bottom: 1px solid #b4b4b4;
+            height: 36px;
+            margin-left: 5px;
+        }
+
+        .top-area .child-nav{
+            float: left;
+        }
+
+        .top-area .child-nav a{
+            display: inline-block;
+            width: 60px;
+            height: 26px;
+            line-height: 26px;
+            color: #253c13;
+            text-align: center;
+        }
+
+        .top-area .child-nav .active{
+            background: url("https://dig.chouti.com/images/tip.png") no-repeat 0 -299px;
+            color: #000;
+            font-weight: bolder;
+        }
+        
+        .sort-nav{
+            float: left;
+            margin-left: 120px;
+            margin-top: 7px;
+        }
+
+        .sort-nav a{
+            display: inline-block;
+            text-align: center;
+            color: #390;
+            margin-left: 10px;
+        }
+
+        .sort-nav .active{
+            color: #b4b4b4;
+        }
+        
+        .publish-btn{
+            float: right;
+            display: inline-block;
+            width: 136px;
+            height: 32px;
+            background-color: #84a42b;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            line-height: 32px;
+        }
+        /*------------- content-list 开始 --------------------*/
+        .content-list .item{
+            padding-top: 10px;
+            border-bottom: 1px solid #b4b4b4;
+        }
+
+        .content-list .item .news-pic img{
+            float: right;
+            width: 60px;
+            height: 60px;
+        }
+
+        .content-list .item .part1{
+            line-height: 20px;
+        }
+
+        .content-list .item .part1:hover a.show-content{
+            text-decoration: underline;
+        }
+
+        .content-list .item .part2{
+            padding: 10px 0;
+            color: #99cecd;
+        }
+
+        .content-list .item .part2 .user-a a img{
+            width: 16px;
+            height: 16px;
+        }
+
+
+
+
+
+        
+        .main-content .content-R {
+            float: left;
+        }
+
+
+        .footer-box{
+            clear: both;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div class="headBox">
+    <div class="headContent">
+
+        <a href="#" class="logo"></a>
+
+        <div class="action-menu">
+            <a href="#" class="tb active">全部</a>
+            <a href="#" class="tb">段子</a>
+            <a href="#" class="tb">图片</a>
+            <a href="#" class="tb">42区</a>
+            <a href="#" class="tb">挨踢1024</a>
+            <a href="#" class="tb">你问我答</a>
+        </div>
+
+        <div class="key-seach">
+            <form action="/" method="post">
+                <input type="text" class="search-text">
+
+                <a href="#" class="i">
+                    <span class="ico"></span>
+                </a>
+            </form>
+        </div>
+
+        <div class="action-nav">
+            <a href="#" class="register-btn">注册</a>
+            <a href="#" class="login-in">登录</a>
+        </div>
+    </div>
+</div>
+
+<div class="main-content-box">
+
+    <div class="main-content">
+
+        <div class="content-L">
+            <!-- 最新最热按钮 -->
+            <div class="top-area" style="margin-bottom: 0px;">
+                <div class="child-nav">
+                    <a href="#" class="hotbtn active">最热</a>
+                    <a href="#" class="newbtn">最新</a>
+                    <a href="#" class="personbtn">人类发布</a>
+                </div>
+
+                <div class="sort-nav">
+                    <a href="#" class="sortbtn active">即时排序</a>
+                    <a href="#" class="newbtn">24小时</a>
+                    <a href="#" class="newbtn">3天</a>
+                </div>
+
+                <a href="#" class="publish-btn">
+                    <span class="n2">+ &nbsp;&nbsp;发布</span>
+                </a>
+            </div>
+
+            <!-- 内容显示区域 -->
+            <div class="content-list">
+                <div class="item">
+                    <div class="news-pic">
+                        <img src="images/pic.jpg" alt="抽屉新热榜">
+                    </div>
+                    <div class="news-content">
+                        <div class="part1">
+                            <a href="#" class="show-content" target="_blank">
+                                【惊奇队长剧照曝光】复联4的最大噱头惊奇队长哦！据目前曝光的剧照，有人说和盖尔加朵比起来，这位看起来怕是要下地种田…美帝对女人的长相还是包容的，要是让大天朝导演来选角，画风应该接近图二
+                            </a>
+
+                            <span class="content-source">-ww4.sinaimg.cn</span>
+                            <a href="#" class="n2">
+                                <span class="content-kind">42区</span>
+                            </a>
+                        </div>
+                        <div class="part2">
+                            <a href="#" class="recommend" title="推荐">
+                                <span class="hand-icon icon-recommend"></span>
+                                <b>4</b>
+                            </a>
+                            <a href="javascript:;" class="discuss">
+                                <span class="hand-icon icon-discuss"></span>
+                                <b>5</b>
+                            </a>
+                            <a href="javascript:;" class="collect" title="加入私藏">
+                                <span class="hand-icon icon-collect"></span>
+                                <b>私藏</b>
+                            </a>
+                            <a href="#" class="user-a">
+                                <span>
+                                    <img src="images/13.jpg" >
+                                </span>
+                                <b>卢卡</b>
+                            </a>
+
+                            <span class="left time-into">
+                                <a href="#" class="time-a" target="_blank">
+                                    <b>4分钟之前</b>
+                                </a>
+                                <i>入热榜</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="news-pic">
+                        <img src="images/pic.jpg" alt="抽屉新热榜">
+                    </div>
+                    <div class="news-content">
+                        <div class="part1">
+                            <a href="#" class="show-content" target="_blank">
+                                【惊奇队长剧照曝光】复联4的最大噱头惊奇队长哦！据目前曝光的剧照，有人说和盖尔加朵比起来，这位看起来怕是要下地种田…美帝对女人的长相还是包容的，要是让大天朝导演来选角，画风应该接近图二
+                            </a>
+
+                            <span class="content-source">-ww4.sinaimg.cn</span>
+                            <a href="#" class="n2">
+                                <span class="content-kind">42区</span>
+                            </a>
+                        </div>
+                        <div class="part2">
+                            <a href="#" class="recommend" title="推荐">
+                                <span class="hand-icon icon-recommend"></span>
+                                <b>4</b>
+                            </a>
+                            <a href="javascript:;" class="discuss">
+                                <span class="hand-icon icon-discuss"></span>
+                                <b>5</b>
+                            </a>
+                            <a href="javascript:;" class="collect" title="加入私藏">
+                                <span class="hand-icon icon-collect"></span>
+                                <b>私藏</b>
+                            </a>
+                            <a href="#" class="user-a">
+                                <span>
+                                    <img src="images/13.jpg" >
+                                </span>
+                                <b>卢卡</b>
+                            </a>
+
+                            <span class="left time-into">
+                                <a href="#" class="time-a" target="_blank">
+                                    <b>4分钟之前</b>
+                                </a>
+                                <i>入热榜</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="news-pic">
+                        <img src="images/pic.jpg" alt="抽屉新热榜">
+                    </div>
+                    <div class="news-content">
+                        <div class="part1">
+                            <a href="#" class="show-content" target="_blank">
+                                【惊奇队长剧照曝光】复联4的最大噱头惊奇队长哦！据目前曝光的剧照，有人说和盖尔加朵比起来，这位看起来怕是要下地种田…美帝对女人的长相还是包容的，要是让大天朝导演来选角，画风应该接近图二
+                            </a>
+
+                            <span class="content-source">-ww4.sinaimg.cn</span>
+                            <a href="#" class="n2">
+                                <span class="content-kind">42区</span>
+                            </a>
+                        </div>
+                        <div class="part2">
+                            <a href="#" class="recommend" title="推荐">
+                                <span class="hand-icon icon-recommend"></span>
+                                <b>4</b>
+                            </a>
+                            <a href="javascript:;" class="discuss">
+                                <span class="hand-icon icon-discuss"></span>
+                                <b>5</b>
+                            </a>
+                            <a href="javascript:;" class="collect" title="加入私藏">
+                                <span class="hand-icon icon-collect"></span>
+                                <b>私藏</b>
+                            </a>
+                            <a href="#" class="user-a">
+                                <span>
+                                    <img src="images/13.jpg" >
+                                </span>
+                                <b>卢卡</b>
+                            </a>
+
+                            <span class="left time-into">
+                                <a href="#" class="time-a" target="_blank">
+                                    <b>4分钟之前</b>
+                                </a>
+                                <i>入热榜</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="news-pic">
+                        <img src="images/pic.jpg" alt="抽屉新热榜">
+                    </div>
+                    <div class="news-content">
+                        <div class="part1">
+                            <a href="#" class="show-content" target="_blank">
+                                【惊奇队长剧照曝光】复联4的最大噱头惊奇队长哦！据目前曝光的剧照，有人说和盖尔加朵比起来，这位看起来怕是要下地种田…美帝对女人的长相还是包容的，要是让大天朝导演来选角，画风应该接近图二
+                            </a>
+
+                            <span class="content-source">-ww4.sinaimg.cn</span>
+                            <a href="#" class="n2">
+                                <span class="content-kind">42区</span>
+                            </a>
+                        </div>
+                        <div class="part2">
+                            <a href="#" class="recommend" title="推荐">
+                                <span class="hand-icon icon-recommend"></span>
+                                <b>4</b>
+                            </a>
+                            <a href="javascript:;" class="discuss">
+                                <span class="hand-icon icon-discuss"></span>
+                                <b>5</b>
+                            </a>
+                            <a href="javascript:;" class="collect" title="加入私藏">
+                                <span class="hand-icon icon-collect"></span>
+                                <b>私藏</b>
+                            </a>
+                            <a href="#" class="user-a">
+                                <span>
+                                    <img src="images/13.jpg" >
+                                </span>
+                                <b>卢卡</b>
+                            </a>
+
+                            <span class="left time-into">
+                                <a href="#" class="time-a" target="_blank">
+                                    <b>4分钟之前</b>
+                                </a>
+                                <i>入热榜</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="news-pic">
+                        <img src="images/pic.jpg" alt="抽屉新热榜">
+                    </div>
+                    <div class="news-content">
+                        <div class="part1">
+                            <a href="#" class="show-content" target="_blank">
+                                【惊奇队长剧照曝光】复联4的最大噱头惊奇队长哦！据目前曝光的剧照，有人说和盖尔加朵比起来，这位看起来怕是要下地种田…美帝对女人的长相还是包容的，要是让大天朝导演来选角，画风应该接近图二
+                            </a>
+
+                            <span class="content-source">-ww4.sinaimg.cn</span>
+                            <a href="#" class="n2">
+                                <span class="content-kind">42区</span>
+                            </a>
+                        </div>
+                        <div class="part2">
+                            <a href="#" class="recommend" title="推荐">
+                                <span class="hand-icon icon-recommend"></span>
+                                <b>4</b>
+                            </a>
+                            <a href="javascript:;" class="discuss">
+                                <span class="hand-icon icon-discuss"></span>
+                                <b>5</b>
+                            </a>
+                            <a href="javascript:;" class="collect" title="加入私藏">
+                                <span class="hand-icon icon-collect"></span>
+                                <b>私藏</b>
+                            </a>
+                            <a href="#" class="user-a">
+                                <span>
+                                    <img src="images/13.jpg" >
+                                </span>
+                                <b>卢卡</b>
+                            </a>
+
+                            <span class="left time-into">
+                                <a href="#" class="time-a" target="_blank">
+                                    <b>4分钟之前</b>
+                                </a>
+                                <i>入热榜</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="news-pic">
+                        <img src="images/pic.jpg" alt="抽屉新热榜">
+                    </div>
+                    <div class="news-content">
+                        <div class="part1">
+                            <a href="#" class="show-content" target="_blank">
+                                【惊奇队长剧照曝光】复联4的最大噱头惊奇队长哦！据目前曝光的剧照，有人说和盖尔加朵比起来，这位看起来怕是要下地种田…美帝对女人的长相还是包容的，要是让大天朝导演来选角，画风应该接近图二
+                            </a>
+
+                            <span class="content-source">-ww4.sinaimg.cn</span>
+                            <a href="#" class="n2">
+                                <span class="content-kind">42区</span>
+                            </a>
+                        </div>
+                        <div class="part2">
+                            <a href="#" class="recommend" title="推荐">
+                                <span class="hand-icon icon-recommend"></span>
+                                <b>4</b>
+                            </a>
+                            <a href="javascript:;" class="discuss">
+                                <span class="hand-icon icon-discuss"></span>
+                                <b>5</b>
+                            </a>
+                            <a href="javascript:;" class="collect" title="加入私藏">
+                                <span class="hand-icon icon-collect"></span>
+                                <b>私藏</b>
+                            </a>
+                            <a href="#" class="user-a">
+                                <span>
+                                    <img src="images/13.jpg" >
+                                </span>
+                                <b>卢卡</b>
+                            </a>
+
+                            <span class="left time-into">
+                                <a href="#" class="time-a" target="_blank">
+                                    <b>4分钟之前</b>
+                                </a>
+                                <i>入热榜</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="news-pic">
+                        <img src="images/pic.jpg" alt="抽屉新热榜">
+                    </div>
+                    <div class="news-content">
+                        <div class="part1">
+                            <a href="#" class="show-content" target="_blank">
+                                【惊奇队长剧照曝光】复联4的最大噱头惊奇队长哦！据目前曝光的剧照，有人说和盖尔加朵比起来，这位看起来怕是要下地种田…美帝对女人的长相还是包容的，要是让大天朝导演来选角，画风应该接近图二
+                            </a>
+
+                            <span class="content-source">-ww4.sinaimg.cn</span>
+                            <a href="#" class="n2">
+                                <span class="content-kind">42区</span>
+                            </a>
+                        </div>
+                        <div class="part2">
+                            <a href="#" class="recommend" title="推荐">
+                                <span class="hand-icon icon-recommend"></span>
+                                <b>4</b>
+                            </a>
+                            <a href="javascript:;" class="discuss">
+                                <span class="hand-icon icon-discuss"></span>
+                                <b>5</b>
+                            </a>
+                            <a href="javascript:;" class="collect" title="加入私藏">
+                                <span class="hand-icon icon-collect"></span>
+                                <b>私藏</b>
+                            </a>
+                            <a href="#" class="user-a">
+                                <span>
+                                    <img src="images/13.jpg" >
+                                </span>
+                                <b>卢卡</b>
+                            </a>
+
+                            <span class="left time-into">
+                                <a href="#" class="time-a" target="_blank">
+                                    <b>4分钟之前</b>
+                                </a>
+                                <i>入热榜</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="news-pic">
+                        <img src="images/pic.jpg" alt="抽屉新热榜">
+                    </div>
+                    <div class="news-content">
+                        <div class="part1">
+                            <a href="#" class="show-content" target="_blank">
+                                【惊奇队长剧照曝光】复联4的最大噱头惊奇队长哦！据目前曝光的剧照，有人说和盖尔加朵比起来，这位看起来怕是要下地种田…美帝对女人的长相还是包容的，要是让大天朝导演来选角，画风应该接近图二
+                            </a>
+
+                            <span class="content-source">-ww4.sinaimg.cn</span>
+                            <a href="#" class="n2">
+                                <span class="content-kind">42区</span>
+                            </a>
+                        </div>
+                        <div class="part2">
+                            <a href="#" class="recommend" title="推荐">
+                                <span class="hand-icon icon-recommend"></span>
+                                <b>4</b>
+                            </a>
+                            <a href="javascript:;" class="discuss">
+                                <span class="hand-icon icon-discuss"></span>
+                                <b>5</b>
+                            </a>
+                            <a href="javascript:;" class="collect" title="加入私藏">
+                                <span class="hand-icon icon-collect"></span>
+                                <b>私藏</b>
+                            </a>
+                            <a href="#" class="user-a">
+                                <span>
+                                    <img src="images/13.jpg" >
+                                </span>
+                                <b>卢卡</b>
+                            </a>
+
+                            <span class="left time-into">
+                                <a href="#" class="time-a" target="_blank">
+                                    <b>4分钟之前</b>
+                                </a>
+                                <i>入热榜</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="news-pic">
+                        <img src="images/pic.jpg" alt="抽屉新热榜">
+                    </div>
+                    <div class="news-content">
+                        <div class="part1">
+                            <a href="#" class="show-content" target="_blank">
+                                【惊奇队长剧照曝光】复联4的最大噱头惊奇队长哦！据目前曝光的剧照，有人说和盖尔加朵比起来，这位看起来怕是要下地种田…美帝对女人的长相还是包容的，要是让大天朝导演来选角，画风应该接近图二
+                            </a>
+
+                            <span class="content-source">-ww4.sinaimg.cn</span>
+                            <a href="#" class="n2">
+                                <span class="content-kind">42区</span>
+                            </a>
+                        </div>
+                        <div class="part2">
+                            <a href="#" class="recommend" title="推荐">
+                                <span class="hand-icon icon-recommend"></span>
+                                <b>4</b>
+                            </a>
+                            <a href="javascript:;" class="discuss">
+                                <span class="hand-icon icon-discuss"></span>
+                                <b>5</b>
+                            </a>
+                            <a href="javascript:;" class="collect" title="加入私藏">
+                                <span class="hand-icon icon-collect"></span>
+                                <b>私藏</b>
+                            </a>
+                            <a href="#" class="user-a">
+                                <span>
+                                    <img src="images/13.jpg" >
+                                </span>
+                                <b>卢卡</b>
+                            </a>
+
+                            <span class="left time-into">
+                                <a href="#" class="time-a" target="_blank">
+                                    <b>4分钟之前</b>
+                                </a>
+                                <i>入热榜</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="news-pic">
+                        <img src="images/pic.jpg" alt="抽屉新热榜">
+                    </div>
+                    <div class="news-content">
+                        <div class="part1">
+                            <a href="#" class="show-content" target="_blank">
+                                【惊奇队长剧照曝光】复联4的最大噱头惊奇队长哦！据目前曝光的剧照，有人说和盖尔加朵比起来，这位看起来怕是要下地种田…美帝对女人的长相还是包容的，要是让大天朝导演来选角，画风应该接近图二
+                            </a>
+
+                            <span class="content-source">-ww4.sinaimg.cn</span>
+                            <a href="#" class="n2">
+                                <span class="content-kind">42区</span>
+                            </a>
+                        </div>
+                        <div class="part2">
+                            <a href="#" class="recommend" title="推荐">
+                                <span class="hand-icon icon-recommend"></span>
+                                <b>4</b>
+                            </a>
+                            <a href="javascript:;" class="discuss">
+                                <span class="hand-icon icon-discuss"></span>
+                                <b>5</b>
+                            </a>
+                            <a href="javascript:;" class="collect" title="加入私藏">
+                                <span class="hand-icon icon-collect"></span>
+                                <b>私藏</b>
+                            </a>
+                            <a href="#" class="user-a">
+                                <span>
+                                    <img src="images/13.jpg" >
+                                </span>
+                                <b>卢卡</b>
+                            </a>
+
+                            <span class="left time-into">
+                                <a href="#" class="time-a" target="_blank">
+                                    <b>4分钟之前</b>
+                                </a>
+                                <i>入热榜</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="news-pic">
+                        <img src="images/pic.jpg" alt="抽屉新热榜">
+                    </div>
+                    <div class="news-content">
+                        <div class="part1">
+                            <a href="#" class="show-content" target="_blank">
+                                【惊奇队长剧照曝光】复联4的最大噱头惊奇队长哦！据目前曝光的剧照，有人说和盖尔加朵比起来，这位看起来怕是要下地种田…美帝对女人的长相还是包容的，要是让大天朝导演来选角，画风应该接近图二
+                            </a>
+
+                            <span class="content-source">-ww4.sinaimg.cn</span>
+                            <a href="#" class="n2">
+                                <span class="content-kind">42区</span>
+                            </a>
+                        </div>
+                        <div class="part2">
+                            <a href="#" class="recommend" title="推荐">
+                                <span class="hand-icon icon-recommend"></span>
+                                <b>4</b>
+                            </a>
+                            <a href="javascript:;" class="discuss">
+                                <span class="hand-icon icon-discuss"></span>
+                                <b>5</b>
+                            </a>
+                            <a href="javascript:;" class="collect" title="加入私藏">
+                                <span class="hand-icon icon-collect"></span>
+                                <b>私藏</b>
+                            </a>
+                            <a href="#" class="user-a">
+                                <span>
+                                    <img src="images/13.jpg" >
+                                </span>
+                                <b>卢卡</b>
+                            </a>
+
+                            <span class="left time-into">
+                                <a href="#" class="time-a" target="_blank">
+                                    <b>4分钟之前</b>
+                                </a>
+                                <i>入热榜</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="news-pic">
+                        <img src="images/pic.jpg" alt="抽屉新热榜">
+                    </div>
+                    <div class="news-content">
+                        <div class="part1">
+                            <a href="#" class="show-content" target="_blank">
+                                【惊奇队长剧照曝光】复联4的最大噱头惊奇队长哦！据目前曝光的剧照，有人说和盖尔加朵比起来，这位看起来怕是要下地种田…美帝对女人的长相还是包容的，要是让大天朝导演来选角，画风应该接近图二
+                            </a>
+
+                            <span class="content-source">-ww4.sinaimg.cn</span>
+                            <a href="#" class="n2">
+                                <span class="content-kind">42区</span>
+                            </a>
+                        </div>
+                        <div class="part2">
+                            <a href="#" class="recommend" title="推荐">
+                                <span class="hand-icon icon-recommend"></span>
+                                <b>4</b>
+                            </a>
+                            <a href="javascript:;" class="discuss">
+                                <span class="hand-icon icon-discuss"></span>
+                                <b>5</b>
+                            </a>
+                            <a href="javascript:;" class="collect" title="加入私藏">
+                                <span class="hand-icon icon-collect"></span>
+                                <b>私藏</b>
+                            </a>
+                            <a href="#" class="user-a">
+                                <span>
+                                    <img src="images/13.jpg" >
+                                </span>
+                                <b>卢卡</b>
+                            </a>
+
+                            <span class="left time-into">
+                                <a href="#" class="time-a" target="_blank">
+                                    <b>4分钟之前</b>
+                                </a>
+                                <i>入热榜</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="news-pic">
+                        <img src="images/pic.jpg" alt="抽屉新热榜">
+                    </div>
+                    <div class="news-content">
+                        <div class="part1">
+                            <a href="#" class="show-content" target="_blank">
+                                【惊奇队长剧照曝光】复联4的最大噱头惊奇队长哦！据目前曝光的剧照，有人说和盖尔加朵比起来，这位看起来怕是要下地种田…美帝对女人的长相还是包容的，要是让大天朝导演来选角，画风应该接近图二
+                            </a>
+
+                            <span class="content-source">-ww4.sinaimg.cn</span>
+                            <a href="#" class="n2">
+                                <span class="content-kind">42区</span>
+                            </a>
+                        </div>
+                        <div class="part2">
+                            <a href="#" class="recommend" title="推荐">
+                                <span class="hand-icon icon-recommend"></span>
+                                <b>4</b>
+                            </a>
+                            <a href="javascript:;" class="discuss">
+                                <span class="hand-icon icon-discuss"></span>
+                                <b>5</b>
+                            </a>
+                            <a href="javascript:;" class="collect" title="加入私藏">
+                                <span class="hand-icon icon-collect"></span>
+                                <b>私藏</b>
+                            </a>
+                            <a href="#" class="user-a">
+                                <span>
+                                    <img src="images/13.jpg" >
+                                </span>
+                                <b>卢卡</b>
+                            </a>
+
+                            <span class="left time-into">
+                                <a href="#" class="time-a" target="_blank">
+                                    <b>4分钟之前</b>
+                                </a>
+                                <i>入热榜</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 页签选择区域 -->
+            <div class="page-area"></div>
+        </div>
+
+        <div class="content-R">content-R</div>
+
+        <div class="footer-box">footer</div>
+
+    </div>
+</div>
+
+
+</body>
+</html>
