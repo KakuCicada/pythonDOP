@@ -4,7 +4,6 @@ import os, platform
 import psutil
 import time
 import json
-from multiprocessing import Pool
 from multiprocessing.dummy import Pool as ThreadPool
 
 info = {}
@@ -79,47 +78,39 @@ def DiskInfo():
         DictPoint['PointFree'] = bytes2human(PointStatus.free)
         DictPoint['PointUsed'] = str(PointStatus.percent) + '%'
         DictPoint['PointType'] = point.fstype
-        Disk[str(point)] = DictPoint
+        Disk[str(point.mountpoint)] = DictPoint
 
     return Disk
 
 
-def PidInfo(pid):
-    '''根据pid获取进程内存、CPU和磁盘使用'''
-    pidDic = {}
-    returnDic = {}
-
-    p = psutil.Process(pid)
-    p_io = p.io_counters()
-    time.sleep(1)
-    newP_io = p.io_counters()
-    pidDic['PidMemUsed'] = bytes2human(p.memory_info().rss)
-    pidDic['PidCpuUsed'] = str(p.cpu_percent(interval=1)) + '%'
-    pidDic['PidIORead'] = bytes2human(newP_io.read_bytes - p_io.read_bytes)
-    pidDic['PidIOWrite'] = bytes2human(newP_io.write_bytes - p_io.write_bytes)
-    pidDic['PidCmdLine'] = " ".join(p.cmdline())
-    returnDic[pid] = pidDic
-
-    return returnDic
-
 def ProcessInfo(PName):
     '''根据进程名来获取所有对应pid情况'''
-    ProcessPidList = []
+    Pidlist = [p.info for p in psutil.process_iter(attrs=['pid', 'name']) if str(PName) in p.info['name']]
+    # print(Pidlist)
 
-    Pidlist = psutil.pids()
-    for pid in Pidlist:
-        if int(pid) > 999:
-            p = psutil.Process(pid)
-            if p.name() == PName:
-                ProcessPidList.append(pid)
-        else:
-            continue
+    def PidInfo(ProcList):
+        '''根据pid获取进程内存、CPU和磁盘使用'''
+        pidDic = {}
+        returnDic = {}
 
-    if len(ProcessPidList) >= 50:
+        p = psutil.Process(ProcList['pid'])
+        p_io = p.io_counters()
+        time.sleep(1)
+        newP_io = p.io_counters()
+        pidDic['PidMemUsed'] = bytes2human(p.memory_info().rss)
+        pidDic['PidCpuUsed'] = str(p.cpu_percent(interval=1)) + '%'
+        pidDic['PidIORead'] = bytes2human(newP_io.read_bytes - p_io.read_bytes)
+        pidDic['PidIOWrite'] = bytes2human(newP_io.write_bytes - p_io.write_bytes)
+        pidDic['PidCmdLine'] = " ".join(p.cmdline())
+        returnDic[str(ProcList['name']) + '-' + str(ProcList['pid'])] = pidDic
+
+        return returnDic
+
+    if len(Pidlist) >= 50:
         pool = ThreadPool(20)
     else:
-        pool = ThreadPool(len(ProcessPidList))
-    returnProcess = pool.map(PidInfo,ProcessPidList)
+        pool = ThreadPool(len(Pidlist))
+    returnProcess = pool.map(PidInfo,Pidlist)
     # print(returnProcess)
     pool.close()
     pool.join()
@@ -127,7 +118,7 @@ def ProcessInfo(PName):
     return returnProcess
 
 if __name__ == '__main__':
-    pname = 'zabbix_agentd'
+    pname = 'ssh'
     info['Disk'] = DiskInfo()
     info['IO'] = IOInfo()
     info['System'] = SystemInfo()
