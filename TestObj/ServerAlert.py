@@ -9,7 +9,7 @@ from multiprocessing.dummy import Pool as ThreadPool
 info = {}
 
 def bytes2human(n):
-    # http://code.activestate.com/recipes/578019
+    # https://psutil.readthedocs.io/en/latest/#bytes-conversion
     # >>> bytes2human(10000)
     # '9.8K'
     # >>> bytes2human(100001221)
@@ -22,7 +22,7 @@ def bytes2human(n):
     for s in reversed(symbols):
         if n >= prefix[s]:
             value = float(n) / prefix[s]
-            return '%.2f%s' % (value, s)
+            return '%.2f%sB' % (value, s)
     return "%sB" % n
 
 def SystemInfo():
@@ -31,8 +31,7 @@ def SystemInfo():
 
     Systeminfo = {}
     if platform.platform().split('-')[0] != 'Windows':
-        SystemLoad = os.getloadavg()
-        Systeminfo['SystemLoad'] = SystemLoad
+        Systeminfo['SystemLoad'] = os.getloadavg()
         Systeminfo['Cpu_iowait'] = int(Cpu_Status.iowait)
     Systeminfo['CpuUsed'] = str(psutil.cpu_percent()) + '%'
     Systeminfo['CpuCount'] = psutil.cpu_count(logical=True)
@@ -40,6 +39,10 @@ def SystemInfo():
     Systeminfo['MemTotal'] = bytes2human(psutil.virtual_memory().total)
     Systeminfo['MemUsed'] = str(psutil.virtual_memory().percent) + '%'
     Systeminfo['BootTime'] = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(psutil.boot_time()))
+
+    for net in psutil.net_if_addrs().keys():
+        if net != 'lo':
+            Systeminfo[str(net) + '-LocalIP'] = psutil.net_if_addrs()[net][0].address
 
     return Systeminfo
 
@@ -102,7 +105,7 @@ def ProcessInfo(PName):
         pidDic['PidIORead'] = bytes2human(newP_io.read_bytes - p_io.read_bytes)
         pidDic['PidIOWrite'] = bytes2human(newP_io.write_bytes - p_io.write_bytes)
         pidDic['PidCmdLine'] = " ".join(p.cmdline())
-        returnDic[str(ProcList['name']) + '-' + str(ProcList['pid'])] = pidDic
+        returnDic[str(ProcList['name']) + '-pid-' + str(ProcList['pid'])] = pidDic
 
         return returnDic
 
