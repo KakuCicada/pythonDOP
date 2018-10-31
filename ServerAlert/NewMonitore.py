@@ -32,7 +32,7 @@ def SystemInfo():
     Cpu_Status = psutil.cpu_times(percpu=False)
 
     Systeminfo = {}
-    if platform.platform().split('-')[0] != 'Windows':
+    if platform.platform().split('-')[0] != 'Windows' and platform.platform().split('-')[0] != 'Darwin':
         Systeminfo['SystemLoad'] = os.getloadavg()
         Systeminfo['Cpu_iowait'] = int(Cpu_Status.iowait)
     Systeminfo['CpuUsed'] = str(psutil.cpu_percent())
@@ -40,7 +40,7 @@ def SystemInfo():
     Systeminfo['Cpu_idle'] = int(Cpu_Status.idle)
     Systeminfo['MemTotal'] = bytes2human(psutil.virtual_memory().total)
     Systeminfo['MemUsed'] = str(psutil.virtual_memory().percent)
-    SystemInfo['SwapUsed'] = str(psutil.swap_memory().percent)
+    Systeminfo['SwapUsed'] = str(psutil.swap_memory().percent)
     Systeminfo['BootTime'] = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(psutil.boot_time()))
 
     return Systeminfo
