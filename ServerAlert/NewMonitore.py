@@ -103,18 +103,27 @@ class ProcessInfo(object):
         self.ProcessName = ProcessName
         self.Pidlist = [p.info for p in psutil.process_iter(attrs=['pid', 'name']) if str(self.ProcessName) in p.info['name']]
 
-    def PidInfo(self):
+    def PidInfo(self,pid):
         '''根据pid获取进程内存、CPU和磁盘使用'''
         pidDic = {}
         returnDic = {}
 
-        p = psutil.Process(self.Pidlist['pid'])
+        p = psutil.Process(pid)
         pidDic['PidMemUsed'] = bytes2human(p.memory_info().rss)
         pidDic['PidCpuUsed'] = str(p.cpu_percent(interval=1))
         pidDic['PidCmdLine'] = " ".join(p.cmdline())
-        returnDic[str(self.Pidlist['pid'])] = pidDic
+        returnDic[pid] = pidDic
 
         return returnDic
+
+    def ProcessAllinfo(self):
+        Mes = {}
+        for i in self.Pidlist:
+            SingleName = i['name']
+            Pid = i['pid']
+            ret = self.PidInfo(Pid)
+            Mes[]
+
 
     def ProcessNum(self):
         return len(self.Pidlist)
