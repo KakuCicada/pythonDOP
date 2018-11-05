@@ -122,7 +122,7 @@ class ProcessInfo(object):
             SingleName = i['name']
             Pid = i['pid']
             ret = self.PidInfo(Pid)
-            Mes[]
+
 
 
     def ProcessNum(self):
