@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Js</title>
+
+    <script>
+        function displayDate()
+        {
+            document.getElementById('demo').innerHTML=Date();
+        }
+        function myFunction() {
+            document.getElementById('show').innerHTML="文字已经发生了变化";
+        }
+    </script>
+</head>
+<body>
+    <h1>This is my first javascript programs</h1>
+<p id="demo">点击“显示日期”按钮之前</p>
+<button type="button" onclick="displayDate()">显示日期</button>
+<p><button type="button" onclick="alert('Show This message')">弹窗</button></p>
+<p id="show">点击“切换文字”按钮之前</p>
+    <p><button type="button" onclick="myFunction()">切换文字</button></p>
+</body>
+</html>

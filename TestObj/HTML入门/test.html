@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>口袋足球 - 口袋足球</title>
+    <style type="text/css">
+        html,body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+        iframe {
+            margin: 0;
+            border-style: none;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<iframe src="http://zuqiu.emagames.cn"></iframe>
+<!--<form action="http://zuqiu.emagames.cn" method="get" name="ema"></form>-->
+<!--<script type="text/javascript">document.ema.submit()</script>-->
+
+<script>
+	function frameauto() {
+		var ifm = document.getElementById("adlistpage");
+		var subWeb = document.frames ? document.frames["adlistpage"].document : ifm.contentDocument;
+		if (ifm != null && subWeb != null) {
+			ifm.height = subWeb.body.scrollHeight;
+		}
+	}
+</script>
+</body>
+</html>
