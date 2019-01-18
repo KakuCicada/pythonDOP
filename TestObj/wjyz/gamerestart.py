@@ -2,6 +2,7 @@
 
 import os, sys
 import subprocess
+import configparser
 
 objdir = os.path.dirname(os.path.dirname(os.path.abspath("__file__")))
 
@@ -17,7 +18,6 @@ configfile = str(objdir) + '/config/wjyz.ini'
 serverdir = str(objdir) + '/server'
 battledir = str(objdir) + '/battle'
 
-proc_config = {'server': ['game', 'cross', 'gateway', 'global', 'proxy', 'web'], 'battle': ['battle', 'battleverify']}
 
 def help():
     HelpMes = """This script used to start or stop procress of wjyz 
@@ -44,10 +44,10 @@ def getindex(List):
     return postfix
 
 
-def getprofport(proc_type, proc_number):
-    proc_dic = getindex(proc_config['server'])
-    proc_port = int('18' + str(proc_dic[proc_type]) + proc_number)
-    return proc_port
+# def getprofport(proc_type, proc_number):
+#     proc_dic = getindex(proc_config['server'])
+#     proc_port = int('18' + str(proc_dic[proc_type]) + proc_number)
+#     return proc_port
 
 
 def startcmd(proc):
