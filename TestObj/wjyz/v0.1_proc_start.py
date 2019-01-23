@@ -20,34 +20,34 @@ Process name can be written multiple, with ',' split, exp: "battle_1,battle_2,ga
     Usage: python %s start/stop web_1|battle_1,gateway_01""" % sys.argv[0]
     return HelpMes
 
-def cmd_run(cmd):
-    # try:
-    #     command = subprocess.check_output(cmd, shell=True)
-    #     code = 0
-    #     cmd_out = command.split()[0]
-    # except Exception as e:
-    #     code = e.returncode
-    # return code,cmd_out
-    ret,output = commands.getstatusoutput(cmd)
-    return ret,output
+def cmd_run(cmd, cmddir=None):
+    command = subprocess.Popen(cmd, shell=True, cwd=cmddir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    code = command.returncode
+    cmd_out = command.stdout.read()
+    cmd_out += command.stderr.read()
 
+    return code,cmd_out
+    # ret,output = commands.getstatusoutput(cmd)
+    # return ret,output
 
 
 def proc_start(proc):
     global_config_read = ConfigParser.ConfigParser()
     global_config_read.read(global_config)
     # for proc in proclist:
+    service_dir = ''
+    binfile = ''
     if proc == 'web_888':
         prof_port = global_config_read.get(proc,'prof')
         binfile = global_config_read.get(proc,'binfile')
         service_dir = objdir + '/' +global_config_read.get(proc,'workdir')
-        proc_start_cmd = 'cd %s; nohup %s -n=%s -prof=%s -ini=%s > /dev/null 2> %s.err.log' %(
-            service_dir,binfile,proc,prof_port,game_config,proc)
+        proc_start_cmd = 'nohup %s -n=%s -prof=%s -ini=%s > /dev/null 2> %s.err.log & ' %(
+            binfile,proc,prof_port,game_config,proc)
     elif proc.split('_')[0] == 'monitor':
         binfile = global_config_read.get(proc, 'binfile')
         service_dir = objdir + '/' + global_config_read.get(proc, 'workdir')
-        proc_start_cmd = 'cd %s; nohup %s -n=%s -ini=%s > /dev/null 2> %s.err.log' % (
-            service_dir, binfile, proc, game_config, proc)
+        proc_start_cmd = 'nohup %s -n=%s -ini=%s > /dev/null 2> %s.err.log & ' % (
+            binfile, proc, game_config, proc)
     else:
         proc_serv = proc.split('_')[0]
         argv_list = global_config_read.items(proc_serv)
@@ -68,10 +68,10 @@ def proc_start(proc):
                 print('Error argv')
                 sys.exit(3)
         proc_argv = ' '.join(proc_argv_list)
-        proc_start_cmd = 'cd %s; nohup %s -n=%s %s -ini=%s > /dev/null 2> %s.err.log' %(
-            service_dir,binfile,proc,proc_argv,game_config,proc)
+        proc_start_cmd = 'nohup %s -n=%s %s -ini=%s > /dev/null 2> %s.err.log & ' %(
+            binfile,proc,proc_argv,game_config,proc)
     print(proc_start_cmd)
-    # cmd_run(proc_start_cmd)
+    cmd_run(proc_start_cmd, cmddir=service_dir)
 
 def proc_stop(proc):
     get_proc_pid_cmd = 'ps axu | grep -w %s | grep -v grep | awk \'{print $2}\'' % proc
@@ -81,13 +81,26 @@ def proc_stop(proc):
     kill_cmd = 'kill %s' % proc_pid
     print(kill_cmd)
     # cmd_run(kill_cmd)
+
+
+def check_proc(action,proc_services):
     time.sleep(5)
-    checkproc_pid_cmd = 'ps aux | grep -w %s | grep -v grep' % proc_pid
-    cmd_ret = cmd_run(checkproc_pid_cmd)
-    if cmd_ret == '':
-        print('stop %s success' % proc)
-    else:
-        print('stop %s faild, pls check it' % proc)
+    for proc in proc_services:
+        checkproc_cmd = 'ps aux | grep -w %s | grep -v grep | wc -l' % proc
+        ret,proc_count = cmd_run(checkproc_cmd)
+        if action == 'stop':
+            if int(proc_count) == 0:
+                print('stop %s success' % proc)
+            else:
+                print('stop %s faild, pls check it' % proc)
+        elif action == 'start':
+            if int(proc_count) == 1:
+                print('start %s success' % proc)
+            else:
+                print('start %s faild, pls check it' % proc)
+        else:
+            print('Get pid Error')
+            exit(5)
 
 def main():
     # for i in range(len(sys.argv)):
@@ -111,7 +124,7 @@ def main():
     proc_action = sys.argv[1]
     print(all_services)
     for one_proc_name in all_services:
-        print(one_proc_name)
+        # print(one_proc_name)
         if proc_action == 'start':
             proc_start(one_proc_name)
         elif proc_action == 'stop':
@@ -119,6 +132,7 @@ def main():
         else:
             print(help())
             exit(3)
+    check_proc(proc_action,all_services)
 
 
 if __name__ == '__main__':

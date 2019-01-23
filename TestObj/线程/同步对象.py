@@ -20,7 +20,7 @@ class Worker(threading.Thread):
         print("Worker: 苦逼啊")
         event.clear()
         event.wait()
-        print("Worker: oh year!")
+        print("Worker: oh yeah!")
 
 
 if __name__ == '__main__':
