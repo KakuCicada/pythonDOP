@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title> { % block title % }{ % endblock % } </title>
+    <title> {% block title %}{{ title }}{% endblock %} </title>
     <link href="/static/img/favicon.png" rel="icon">
     <link href="/static/img/apple-touch-icon.png" rel="apple-touch-icon">
     <!-- Bootstrap core CSS -->
@@ -26,7 +26,7 @@
                   <div class = "fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation" > </div>
               </div>
             <!--logo start-->
-            <a href="home.html" class="logo"><b><span>服务器管理系统</span></b></a>
+            <a href="home.html" class="logo"><b><span>{% block log %}{{ title }}{% endblock %}</span></b></a>
             <!--logo end-->
             <div class="top-menu">
                 <ul class="nav pull-right top-menu">
