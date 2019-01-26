@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title> {% block title %}{{ title }}{% endblock %} </title>
+    <title> {% block title %}{{ titile }}{% endblock %} </title>
     <link href="/static/img/favicon.png" rel="icon">
     <link href="/static/img/apple-touch-icon.png" rel="apple-touch-icon">
     <!-- Bootstrap core CSS -->
@@ -45,7 +45,7 @@
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu" id="nav-accordion">
                     <p class="centered"><a href="home.html"><img src="/static/img/ui-sam.jpg" class="img-circle" width="80"></a></p>
-                    <h5 class="centered">{% block username %}{% endblock %},你好</h5>
+                    <h5 class="centered">{% block username %}{{ username }}{% endblock %},你好</h5>
 
                     <li class="sub-menu">
                         <a href="servertime.html">
