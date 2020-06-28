@@ -88,7 +88,7 @@ DATABASES = {
         'NAME': 'mysql',
         'USER': 'root',
         'PASSWORD': '123456',
-        'HOST': '127.0.0.1',
+        'HOST': '10.246.89.219',
         'PORT': '3306',
     },
     'server': {
@@ -96,7 +96,7 @@ DATABASES = {
         'NAME': 'server',
         'USER': 'root',
         'PASSWORD': '123456',
-        'HOST': '127.0.0.1',
+        'HOST': '10.246.89.219',
         'PORT': '3306',
     },
 }
@@ -142,7 +142,7 @@ STATICFILES_DIRS = (
 
 # 服务器登录的配置
 login_config = {
-    "hostip": "10.246.89.245",       # 服务器的ip
+    "hostip": "10.246.89.219",       # 服务器的ip
     "hostport": 22,     # 端口号
     "username": "root",     # 登陆的用户名
     "userpwd": "p@ssw0rd",      # 登陆密码
